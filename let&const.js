@@ -133,4 +133,3 @@ PI = 3.1415;
 var N = 18
 const N = 18
 // SyntaxError: Identifier 'N' has already been declared
-
