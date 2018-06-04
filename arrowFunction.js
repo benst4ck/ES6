@@ -132,3 +132,44 @@ function foo() {
 
 foo(2, 4, 6, 8)
 //  [2, 4, 6, 8, callee: ƒ, Symbol(Symbol.iterator): ƒ]
+
+// 箭头函数自身并没有arguments对象 也没有this 但可以用rest参数代替arguments对象 
+
+// 箭头函数表达式对非方法函数是最合适的 因为他本身没有定义this绑定
+var obj = {
+  i: 10,
+  b: () => console.log(this.i, this),
+  c: function() {
+    console.log( this.i, this)
+  }
+}
+
+obj.b()
+// undefined Window {...}
+obj.c()
+// 10 {i: 10, b: ƒ, c: ƒ}
+
+var callback = callback || (() => {});  // 箭头函数作为一个备选值时需要用括号括起来
+
+(() => 'foobar')();   // 立即调用箭头函数
+// "foobar"
+
+var arr = [5, 6, 13, 0, 1, 18, 23];
+arr.reduce((a, b) => a + b);
+// 66
+
+arr.filter(v => v % 2 == 0);
+// [6, 0, 18]
+
+arr.map(v => v * 2);
+// [10, 12, 26, 0, 2, 36, 46]
+
+setTimeout( () => {
+  console.log('I happen sooner');
+  setTimeout( () => {
+    console.log('I happen later');
+  }, 2000);
+}, 3000);
+
+// I happen sooner  上面代码执行3秒后输出这里的内容
+// I happen later  再过两秒后输出这里的内容
